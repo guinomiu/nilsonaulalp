@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<!--
+Nome: Carlos Henrique Cintra alves         Turma: 3b    N°4
+Nome: Enzo Ribeiro Gil                     Turma: 3b    N°7
+Nome: Guilherme Luiz Cornita               Turma: 3b    N°11
+Nome: Munir Ahamad Rebouças El Jarouche    Turma: 3b    N°23
+Nome: Otavio da silva sousa filho          Turma: 3b    N°25
+Nome: Rodrigo Stefano Alves                Turma: 3b    N°27 -->
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listador primos</title>
+   
+</head>
+
+<body>
+  
+        <label style="font-size: 20px;">digite um numero natural</label>
+        <input type="text" id="Numero1" autofocus><br>
+        <button onclick="listar()">Listar</button> <br><br>
+        <canvas id="meuCanvas" width="400" height="400"style="border:1px solid #000000; background-color: white;"></canvas>
+    
+
+    <script>
+        var canvas = document.getElementById("meuCanvas");
+        var ctx = canvas.getContext('2d');
+   
+
+
+        function listar() {
+
+            var quantidadeprimo = parseInt(document.getElementById("Numero1").value, 10);  
+
+            var lista = listarPrimos(quantidadeprimo);
+
+            mostrarprimos(lista);   
+        }
+        
+        
+        function listarPrimos(quantidadeprimo) {
+            let qntnumeros = 1;
+            let listaarray = [2];
+            for (cont = 3; qntnumeros < quantidadeprimo; cont += 2) {
+                if (verificaprimo(cont)) {
+                 
+                    listaarray.push(cont);
+                    qntnumeros++;
+                }
+            }
+            return listaarray;
+        }
+        
+        function verificaprimo(N1) {
+            let contador = 3;
+            if (N1 < 2 || (N1 % 2 == 0 && N1 != 2)) {
+                return false;
+            }
+             else {
+                while (contador <= Math.sqrt(N1)) {
+                    if (N1 % contador == 0) {
+                        return false;
+                    }
+                    contador = contador + 2;
+                }
+            }
+            return true;
+        }
+
+
+           function mostrarprimos(lista) {
+            ctx.clearRect(0, 0, 400, 400); 
+            let x = 0;         
+            let N1 = parseInt(document.getElementById("Numero1").value, 10);  
+            let y = 40;
+            ctx.font = "30px Arial";
+            
+                
+        
+            for (let item = 0; item < lista.length; item++) {
+                let primo = lista[item].toString().concat(", "); 
+                let tamanho = ctx.measureText(primo).width; 
+                if (x + tamanho > 400) {
+                    y += 40;
+                    x = 0;
+                }
+        
+                ctx.fillText(primo, x, y);
+                x += tamanho;
+                console.log(primo);
+
+            }
+        }
+        </script>
+        
+</body>
+
+</html>
